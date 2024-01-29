@@ -1,0 +1,29 @@
+/* MemeGallery.css */
+
+/* Gallery container styles */
+.meme-gallery-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Thumbnail styles */
+  .thumbnail {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+  }
+  
+  .thumbnail:hover {
+    transform: scale(1.05);
+  }
+  
+  /* PhotoSwipe styles (customize as needed) */
+  .pswp {
+    z-index: 2000;
+  }
+  
+  /* Customize other PhotoSwipe styles as needed */
+  
