@@ -16,13 +16,14 @@ const MemeGallery = () => {
     fetchMemes();
   }, []);
 
+  let limit = 0;
   const fetchMemes = async () => {
     const subreddit = 'memes';
-    const limit = 12;
+    limit += 4;
 
     try {
       const response = await axios.get(
-        `https://www.reddit.com/r/${subreddit}/top.json?limit=${limit}&after=${after}`
+        `https://www.reddit.com/r/${subreddit}/top.json?limit=${limit}`
       );
 
       const newMemes = response.data.data.children.map((child) => ({
@@ -39,38 +40,20 @@ const MemeGallery = () => {
     }
   };
 
-  const openPhotoSwipe = (index) => {
-    const items = memes.map((meme) => ({
-      src: meme.url,
-      w: 0,
-      h: 0,
-    }));
 
-    const options = {
-      index,
-    };
-
-    const gallery = new PhotoSwipe(
-      document.querySelector('.pswp'),
-      PhotoSwipeUI_Default,
-      items,
-      options
-    );
-    gallery.init();
-  };
-
-  const handleThumbnailClick = (index) => {
-    openPhotoSwipe(index);
-  };
 
   const handleScroll = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop ===
-      document.documentElement.offsetHeight
-    ) {
+    const scrollThreshold = 100;
+  
+    const scrolledToBottom =
+      window.innerHeight + document.documentElement.scrollTop >=
+      document.documentElement.offsetHeight - scrollThreshold;
+  
+    if (scrolledToBottom) {
       fetchMemes();
     }
   };
+  
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -104,40 +87,6 @@ const MemeGallery = () => {
           ))}
         </div>
       </Gallery>
-      <div className="pswp" tabIndex="-1" role="dialog" aria-hidden="true">
-        <div className="pswp__bg"></div>
-        <div className="pswp__scroll-wrap">
-          <div className="pswp__container">
-            <div className="pswp__item"></div>
-            <div className="pswp__item"></div>
-            <div className="pswp__item"></div>
-          </div>
-          <div className="pswp__ui pswp__ui--hidden">
-            <div className="pswp__top-bar">
-              <div className="pswp__counter"></div>
-              <button className="pswp__button pswp__button--close" title="Close"></button>
-              <button className="pswp__button pswp__button--share" title="Share"></button>
-              <button className="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-              <button className="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-              <div className="pswp__preloader">
-                <div className="pswp__preloader__icn">
-                  <div className="pswp__preloader__cut">
-                    <div className="pswp__preloader__donut"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-              <div className="pswp__share-tooltip"></div>
-            </div>
-            <button className="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
-            <button className="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
-            <div className="pswp__caption">
-              <div className="pswp__caption__center"></div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
