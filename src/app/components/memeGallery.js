@@ -3,10 +3,9 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'photoswipe/dist/photoswipe.css';
 import { Gallery, Item } from 'react-photoswipe-gallery';
-import Image from 'next/image';
 
 import 'photoswipe/dist/photoswipe.css'
-import './MemeGallery.css'; // Create a separate CSS file for styling if needed
+import './MemeGallery.css'; 
 
 const MemeGallery = () => {
   const [memes, setMemes] = useState([]);
