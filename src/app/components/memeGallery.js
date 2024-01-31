@@ -15,7 +15,7 @@ const MemeGallery = () => {
     fetchMemes();
   }, []);
 
-  let limit = 0;
+  let limit = 12;
   const fetchMemes = async () => {
     const subreddit = 'memes';
     limit += 4;
